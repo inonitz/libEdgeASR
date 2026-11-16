@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
 
-<h3 align="center">STT-HE (sttserv)</h3>
+<h3 align="center">STT-HE (libEdgeASR)</h3>
 
   <p align="center">
     Low-latency Speech-To-Text server in C++, for local and embedded use
@@ -17,7 +17,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-`sttserv` is a low-latency Speech-To-Text (ASR) library and server written in C++. It wraps existing
+`libEdgeASR` is a low-latency Speech-To-Text (ASR) library and server written in C++. It wraps existing
 ML inference engines behind one backend interface, so the same capture and transcription code runs on
 top of different model runtimes.
 
@@ -39,7 +39,7 @@ path as fast as feasible for local and embedded deployment.
 ### Project Structure
 
 ```
-sttserv/          the library + server target (public headers in sttserv/include/sttserv/)
+libEdgeASR/          the library + server target (public headers in libEdgeASR/include/libEdgeASR/)
 test/             GoogleTest accuracy/functionality harness (asr_test.cpp)
 benchmark/        GoogleBenchmark performance targets
 sandbox/          Python scratch space for prototyping / measurement
@@ -100,11 +100,11 @@ required — configuring with none is a fatal error. The defaults baked into `bu
 
 | Option | Default | Meaning |
 |---|---|---|
-| `STTSERVER_BUILD_LIBRARY_BACKEND_WHISPER` | `ON` | whisper.cpp / ggml backend (Whisper + Parakeet) |
-| `STTSERVER_BUILD_LIBRARY_BACKEND_SHERPA_ONNX` | `OFF` | sherpa-onnx (ONNX Runtime) backend |
-| `STTSERVER_BUILD_LIBRARY` | `ON` | build the actual server library |
-| `STTSERVER_BUILD_TESTS` | `ON` (top-level) | GoogleTest harness |
-| `STTSERVER_BUILD_BENCHMARKS` | `ON` (top-level) | GoogleBenchmark targets |
+| `libEdgeASRER_BUILD_LIBRARY_BACKEND_WHISPER` | `ON` | whisper.cpp / ggml backend (Whisper + Parakeet) |
+| `libEdgeASRER_BUILD_LIBRARY_BACKEND_SHERPA_ONNX` | `OFF` | sherpa-onnx (ONNX Runtime) backend |
+| `libEdgeASRER_BUILD_LIBRARY` | `ON` | build the actual server library |
+| `libEdgeASRER_BUILD_TESTS` | `ON` (top-level) | GoogleTest harness |
+| `libEdgeASRER_BUILD_BENCHMARKS` | `ON` (top-level) | GoogleBenchmark targets |
 
 ggml compute backend (Vulkan / CUDA / Metal / CPU) is selected with the usual `-DGGML_*` flags passed
 through at configure time; see the commented block in `build.sh` for a worked CUDA + Vulkan example.
@@ -119,13 +119,13 @@ through at configure time; see the commented block in `build.sh` for a worked CU
 In your `CMakeLists.txt`:
 
 ```cmake
-add_subdirectory(path/to/sttserv)
-target_link_libraries(your_target PRIVATE STTSERVER::SpeechToTextServer)
+add_subdirectory(path/to/libEdgeASR)
+target_link_libraries(your_target PRIVATE libEdgeASRER::SpeechToTextServer)
 ```
 
-Public headers are under `sttserv/include/sttserv/` — `backend.hpp` (the transcription backend),
+Public headers are under `libEdgeASR/include/libEdgeASR/` — `backend.hpp` (the transcription backend),
 `audio2.hpp` (capture / WAV), `async_key.hpp` (push-to-talk key hook), `cmdline.hpp`, and the exported
-C API in `sttserver_api.h`. The C API export macros (`STTSERVER_EXPORTS` / `STTSERVER_STATIC_DEFINE`)
+C API in `libEdgeASRer_api.h`. The C API export macros (`libEdgeASRER_EXPORTS` / `libEdgeASRER_STATIC_DEFINE`)
 are set for you by the library target depending on shared vs static.
 
 As a submodule the workspace-level tests and benchmarks auto-disable, so you only pull in the library.
@@ -266,11 +266,11 @@ from `bench.sh` hold transcript text and speaker labels, so they are git-ignored
 * [Typed Tests (GoogleTest)](https://google.github.io/googletest/advanced.html#typed-tests)
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/inonitz/sttserv?style=for-the-badge&color=blue
-[contributors-url]: https://github.com/inonitz/sttserv/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/inonitz/sttserv?style=for-the-badge&color=blue
-[forks-url]: https://github.com/inonitz/sttserv/network/members
-[stars-shield]: https://img.shields.io/github/stars/inonitz/sttserv?style=for-the-badge&color=blue
-[stars-url]: https://github.com/inonitz/sttserv/stargazers
-[license-shield]: https://img.shields.io/github/license/inonitz/sttserv?style=for-the-badge
-[license-url]: https://github.com/inonitz/sttserv/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/inonitz/libEdgeASR?style=for-the-badge&color=blue
+[contributors-url]: https://github.com/inonitz/libEdgeASR/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/inonitz/libEdgeASR?style=for-the-badge&color=blue
+[forks-url]: https://github.com/inonitz/libEdgeASR/network/members
+[stars-shield]: https://img.shields.io/github/stars/inonitz/libEdgeASR?style=for-the-badge&color=blue
+[stars-url]: https://github.com/inonitz/libEdgeASR/stargazers
+[license-shield]: https://img.shields.io/github/license/inonitz/libEdgeASR?style=for-the-badge
+[license-url]: https://github.com/inonitz/libEdgeASR/blob/main/LICENSE
